@@ -1,0 +1,20 @@
+name: Build EXE
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup MSVC
+        uses: microsoft/setup-msbuild@v1.3.1
+      - name: Compile
+        run: cl drag.c /Fe:DRAG.exe
+      - name: Upload EXE
+        uses: actions/upload-artifact@v3
+        with:
+          name: DRAG
+          path: DRAG.exe
